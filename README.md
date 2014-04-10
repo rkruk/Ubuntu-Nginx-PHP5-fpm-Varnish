@@ -1,4 +1,4 @@
-Ubuntu + NGINX settings for wordpress / html5 / node.js
+Ubuntu + NGINX, Varnish, php5-fpm settings for wordpress / html5 / node.js
 
 +------------------------------------------------------------------------------------+
 
