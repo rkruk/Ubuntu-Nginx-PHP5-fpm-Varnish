@@ -2,8 +2,7 @@ Ubuntu + NGINX settings for wordpress / html5 / node.js
 
 +------------------------------------------------------------------------------------+
 
-Commands and config files examples for Ubuntu + NGINX 
-+ Varnish, and some other optimisation for speed and efficiency.
+Commands and config files examples for Ubuntu + NGINX + Varnish, and some other optimisation for speed and efficiency.
 
 This is cheat sheet I use for my own purposes every single time, 
 when I'm setting up web server from scratch. It is rather not 
