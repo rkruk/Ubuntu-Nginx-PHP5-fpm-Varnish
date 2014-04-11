@@ -9,3 +9,23 @@ This is a cheat sheet I use every single time for my own purposes, when I'm sett
 Usually I use cloud based virtual servers but it should* works just for any working web server based on Ubuntu.
 
 *-Please use your own brain! And don't blindly copy and paste commands to your terminal - for your own safety.
+
+How you should read files hierarchy:
+
+/   
+ |
+ |
+  --> /etc
+ |    |
+ |    |
+ |    -> /etc/nginx
+ |             |
+ |             |
+ |             -> /etc/nginx/html (for 50.. sites)
+ |             -> /etc/nginx/sites-available (template configs for websites)
+ |             -> /etc/nginx/sites-enabled (enabled template configs)
+ |
+ -> /var
+    |
+    |
+    ->/var/www (here are dragons)
