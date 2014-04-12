@@ -1,6 +1,6 @@
-**                                                                            ubuntu-nginx-happiness**
+**                                                                     ubuntu-nginx-happiness**
 
-**                                                                 =============================**
+**                                                          =============================**
 
 <br />
 <b>Step by step:</b>  console commands, config files and real life examples for setting up the web server based on <b>Ubuntu</b> + <b>NGINX</b> + <b>Varnish</b>.
@@ -19,7 +19,7 @@ Usually I use cloud based virtual servers but it should* works just for any work
 **   **
 
 <br />
-**                                       How you should read files hierarchy:**
+**                              How you should read files hierarchy:**
 <b> How you should read files hierarchy: </b>
 <br />
 
