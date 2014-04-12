@@ -1,55 +1,106 @@
+# Redirect to non-www
 server {
-	listen 8080;
+    listen 8080;
+    server_name www.subdomain.example.com;
+    return 301 $scheme://subdomain.example.com$request_uri;
+}
 
-	root /var/www/example.com/subdomain;
+server {
+ 
+    listen 8080;
 
-        index index.html index.php index.htm;
+    # Document root
+    root /var/www/example/subdomain/;
 
-	# Make site accessible from http://localhost/
-	server_name subdomain.example.com;
+    # Try static files first, then php
+    index index.html index.htm;
 
-	location / {
-		# First attempt to serve request as file, then
-		# as directory, then fall back to displaying a 404.
-		try_files $uri $uri/ /index.php?q=$uri&$args;    # /index.html;
-		# Uncomment to enable naxsi on this location
-		# include /etc/nginx/naxsi.rules
-	}
+    # Specific logs for this vhost
+    access_log /var/log/nginx/subdomain.example.com-access.log;
+    error_log  /var/log/nginx/subdomain.example.com-error.log error;
 
-	# Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
-	#location /RequestDenied {
-	#	proxy_pass http://127.0.0.1:8080;
-	#}
+    # Make site accessible from http://localhost/
+    server_name subdomain.example.com;
 
-    #	error_page 404 /404.html;
+    # Specify a character set
+    charset utf-8;
 
-	# redirect server error pages to the static page /50x.html
-	#
-	# error_page 500 502 503 504 /50x.html;
-	location = /50x.html {
-		root /usr/share/nginx/html;
-	}
+    # Don't log robots.txt or favicon.ico files
+    location = /favicon.ico { log_not_found off; access_log off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
 
-	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-	#
-	location ~ \.php$ {
-	        try_files $uri = 404;
-        	fastcgi_split_path_info ^(.+\.php)(/.+)$;
-		    # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+    # 404 errors handled by our application
+    error_page 404 /index.html;
 
-		    # With php5-cgi alone:
-		    #fastcgi_pass 127.0.0.1:9000;
-		    # With php5-fpm:
-		    fastcgi_pass unix:/var/run/php5-fpm.sock;
-		    fastcgi_index index.php;
-            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-		    include fastcgi_params;
-	        }
+    error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+              root /usr/share/nginx/www;
+    }
 
-	# deny access to .htaccess files, if Apache's document root
-	# concurs with nginx's one
-	#
-	#location ~ /\.ht {
-	#	deny all;
-	#}
+    # Deny access to .htaccess
+    location ~ /\.ht {
+            deny all;
+    }        
+
+# Define default caching of 24h
+    expires 86400s;
+    add_header Pragma public;
+    add_header Cache-Control "max-age=86400, public, must-revalidate, proxy-revalidate";
+
+# Rewrite for versioned CSS+JS via filemtime
+    location ~* ^.+\.(css|js)$ {
+        rewrite ^(.+)\.(\d+)\.(css|js)$ $1.$3 last;
+        expires 31536000s;
+        access_log off;
+        log_not_found off;
+        add_header Pragma public;
+        add_header Cache-Control "max-age=31536000, public";
+}
+# Expire rules for static content
+
+# cache.appcache, your document html and data
+location ~* \.(?:manifest|appcache|html?|xml|json)$ {
+  expires -1;
+  access_log /var/log/nginx/static.log;
+}
+
+# Feed
+location ~* \.(?:rss|atom)$ {
+  expires 1h;
+  add_header Cache-Control "public";
+}
+
+# Media: images, icons, video, audio, HTC
+location ~* \.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|svgz|mp4|ogg|ogv|webm|htc)$ {
+  expires 1M;
+  access_log off;
+  add_header Cache-Control "public";
+}
+
+# CSS and Javascript
+location ~* \.(?:css|js)$ {
+  expires 1y;
+  access_log off;
+  add_header Cache-Control "public";
+}
+
+    # Cross domain webfont access
+    location ~* \.(?:ttf|ttc|otf|eot|woff)$ {
+    add_header "Access-Control-Allow-Origin" "*";
+
+    expires 1M;
+    access_log off;
+    add_header Cache-Control "public";
+    }
+
+    # Prevent clients from accessing hidden files (starting with a dot)
+    # This is particularly important if you store .htpasswd files in the site hierarchy
+    location ~* (?:^|/)\. {
+    deny all;
+    }
+
+    # Prevent clients from accessing to backup/config/source files
+    location ~* (?:\.(?:bak|config|sql|fla|psd|ini|log|sh|inc|swp|dist)|~)$ {
+    deny all;
+    }
 }
