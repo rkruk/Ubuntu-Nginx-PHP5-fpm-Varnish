@@ -1,114 +1,149 @@
+# Redirect to non-www
 server {
     listen 8080;
-        #root /usr/share/nginx/html;
-        root /var/www/example.com;
+    server_name www.example.com;
+    return 301 $scheme://example.com$request_uri;
+}
 
-        # Tell the browser about SPDY
-        # add_header  Alternate-Protocol 443:npn-spdy/2;
+server {
+ 
+    listen 8080;
 
-        index index.php index.html index.htm;
+    # Document root
+    root /var/www/example.com;
 
-        # Make site accessible from http://localhost/
-        server_name example.com;
+    # Try static files first, then php
+    index index.html index.htm index.php;
 
-        autoindex off;
-        location /app/                { deny all; }
-        location /includes/           { deny all; }
-        location /lib/                { deny all; }
-        location /media/downloadable/ { deny all; }
-        location /pkginfo/            { deny all; }
-        location /report/config.xml   { deny all; }
-        location /var/                { deny all; }
-        location = /RELEASE_NOTES.txt { deny all; }
-        location = /LICENSE_AFL.txt   { deny all; }
-        location = /LICENSE.html      { deny all; }
-        location = /LICENSE.txt       { deny all; }
-        location = /php.ini.sample    { deny all; }
-        location = /index.php.sample  { deny all; }
-        location  /.                  { return 404; }
+    # Specific logs for this vhost
+    access_log /var/log/nginx/example.com-access.log;
+    error_log  /var/log/nginx/example.com-error.log error;
 
-        location ~* \.(ogg|ogv|svg|svgz|eot|otf|woff|mp4|ttf|rss|atom|jpg|jpeg|gif|png|ico|zip|tgz|gz|rar|bz2|doc|xls|exe|ppt|tar|mid|midi|wav|bmp|rtf)$ {
-               access_log off;
-               expires 30d;
-        }
+    # Make site accessible from http://localhost/
+    server_name example.com;
 
+    # Specify a character set
+    charset utf-8;
+
+    # Redirect needed to "hide" index.php
     location / {
-        # First attempt to serve request as file, then
-        # as directory, then fall back to displaying a 404.
-        try_files $uri $uri/ /index.php?q=$uri&$args;    # /index.html;
-        # Uncomment to enable naxsi on this location
-        # include /etc/nginx/naxsi.rules
-
-        if ($request_uri ~* "\.(png|gif|jpg|jpeg|css|js|swf|ico|txt|xml|bmp|pdf|doc|docx|ppt|pptx|zip)$") {
-        expires max;
-        }
-
+            try_files $uri $uri/ /index.php?q=$uri&$args;
     }
 
-    # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
-    #location /RequestDenied {
-    #   proxy_pass http://127.0.0.1:8080;
-    #}
+    # Don't log robots.txt or favicon.ico files
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt { access_log off; log_not_found off; }
+    location = /apple-touch-icon.png { access_log off; log_not_found off; }
+    location = /apple-touch-icon-precomposed.png { access_log off; log_not_found off; }
 
-    error_page 404 /404.html;
+    # 404 errors handled by our application
+    error_page 404 /index.html;
 
-    # redirect server error pages to the static page /50x.html
-    #
     error_page 500 502 503 504 /50x.html;
     location = /50x.html {
-        root /usr/share/nginx/html;
+              root /usr/share/nginx/www;
     }
 
     # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-    #
     location ~ \.php$ {
-            try_files $uri = 404;
+
+            fastcgi_buffers 8 256k;
+            fastcgi_buffer_size 128k;
+            fastcgi_intercept_errors on;
             fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
-
-        expires        off; # Do not cache dynamic content
-
-        # With php5-cgi alone:
-        #fastcgi_pass 127.0.0.1:9000;
-        # With php5-fpm:
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
-        fastcgi_index index.php;
-                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        include fastcgi_params;
-                fastcgi_param  QUERY_STRING     $query_string;
-                fastcgi_param  REQUEST_METHOD   $request_method;
-                fastcgi_param  CONTENT_TYPE     $content_type;
-                fastcgi_param  CONTENT_LENGTH   $content_length;
-                fastcgi_intercept_errors        on;
-                fastcgi_ignore_client_abort     off;
-                fastcgi_connect_timeout 60;
-                fastcgi_send_timeout 180;
-                fastcgi_read_timeout 180;
-                fastcgi_buffer_size 128k;
-                fastcgi_buffers 4 256k;
-                fastcgi_busy_buffers_size 256k;
-                fastcgi_temp_file_write_size 256k;
+            try_files $uri =404;
+            fastcgi_pass unix:/var/run/php5-fpm.sock;
+            fastcgi_index index.php;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            include fastcgi_params;
     }
 
-        rewrite ^/sitemap_index\.xml$ /index.php?sitemap=1 last;
-        rewrite ^/([^/]+?)-sitemap([0-9]+)?\.xml$ /index.php?sitemap=$1&sitemap_n=$2 last;
-        # rewrite ^(.*) https://$host$1 permanent;
+    # Deny access to .htaccess
+    location ~ /\. { deny  all; access_log off; log_not_found off; }
+    location ~ /\.ht {
+            deny all;
+    }        
+
+    # rewrite for Yoast sitemap
+    location ~ ([^/]*)sitemap(.*)\.x(m|s)l$ {
+        rewrite ^/sitemap\.xml$ /sitemap_index.xml permanent;
+        rewrite ^/([a-z]+)?-?sitemap\.xsl$ /index.php?xsl=$1 last;
+	    rewrite ^/sitemap_index\.xml$ /index.php?sitemap=1 last;
+	    rewrite ^/([^/]+?)-sitemap([0-9]+)?\.xml$ /index.php?sitemap=$1&sitemap_n=$2 last;
+
+    ## following lines are options. Needed for wordpress-seo addons
+        rewrite ^/news_sitemap\.xml$ /index.php?sitemap=wpseo_news last;
+	    rewrite ^/locations\.kml$ /index.php?sitemap=wpseo_local_kml last;
+	    rewrite ^/geo_sitemap\.xml$ /index.php?sitemap=wpseo_local last;
+	    rewrite ^/video-sitemap\.xsl$ /index.php?xsl=video last;
+
+	    access_log off;
+    }
+
+# Define default caching of 24h
+    expires 86400s;
+    add_header Pragma public;
+    add_header Cache-Control "max-age=86400, public, must-revalidate, proxy-revalidate";
+
+# Do not allow access to files giving away your WordPress version
+    location ~ /(\.|wp-config.php|readme.html|licence.txt) {
+        return 404;
+    }
+
+# Rewrite for versioned CSS+JS via filemtime
+    location ~* ^.+\.(css|js)$ {
+        rewrite ^(.+)\.(\d+)\.(css|js)$ $1.$3 last;
+        expires 31536000s;
+        access_log off;
+        log_not_found off;
+        add_header Pragma public;
+        add_header Cache-Control "max-age=31536000, public";
+}
+# Expire rules for static content
+
+# cache.appcache, your document html and data
+location ~* \.(?:manifest|appcache|html?|xml|json)$ {
+  expires -1;
+  access_log /var/log/nginx/static.log;
 }
 
-# HTTPS server
+# Feed
+location ~* \.(?:rss|atom)$ {
+  expires 1h;
+  add_header Cache-Control "public";
+}
 
-#server {
-#        listen 443 spdy;
-#        server_name example.com;
-#
-#        root /var/www/example.com;
-#        index index.php index.html index.htm;
-#
-#        ssl on;
-#        # SSL Certificate and private key
-#        ssl_certificate /etc/nginx/ssl/example.com.crt;
-#        ssl_certificate_key /etc/nginx/ssl/example.com_encrypted.key;
-#        example.com.csr  example.com_encrypted.key
-#        # Tell the browser about SPDY
-#        add_header  Alternate-Protocol 443:npn-spdy/2;
-#}
+# Media: images, icons, video, audio, HTC
+location ~* \.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|svgz|mp4|ogg|ogv|webm|htc)$ {
+  expires 1M;
+  access_log off;
+  add_header Cache-Control "public";
+}
+
+# CSS and Javascript
+location ~* \.(?:css|js)$ {
+  expires 1y;
+  access_log off;
+  add_header Cache-Control "public";
+}
+
+    # Cross domain webfont access
+    location ~* \.(?:ttf|ttc|otf|eot|woff)$ {
+    add_header "Access-Control-Allow-Origin" "*";
+
+    expires 1M;
+    access_log off;
+    add_header Cache-Control "public";
+    }
+
+    # Prevent clients from accessing hidden files (starting with a dot)
+    # This is particularly important if you store .htpasswd files in the site hierarchy
+    location ~* (?:^|/)\. {
+    deny all;
+    }
+
+    # Prevent clients from accessing to backup/config/source files
+    location ~* (?:\.(?:bak|config|sql|fla|psd|ini|log|sh|inc|swp|dist)|~)$ {
+    deny all;
+    }
+}
