@@ -5,7 +5,9 @@
 <br />
 <b>Step by step:</b>  console commands, config files and real life examples for setting up the web server based on <b>Ubuntu</b> + <b>NGINX</b> + <b>Varnish</b>.
 
-<i>Additionally, I've added my optimisations for reasonable speed and efficiency for small to medium size server (256mb to 2gb processor + 256mb to 3gb RAM).</i>
+<i>Additionally, I've added my 'reasonable speed' and efficiency optimisations for small (to medium) size servers (256mb to 2gb processor + 256mb to 3gb RAM).</i>
+
+<i>It is compatible with Ubuntu (tested on 13.04, 13.10 and 14.04), Debian (testing line)- but most of the workflow after carefully read and adapted, should work on any Linux web server.</i>
 **   **
 **                                                                                                     **
 
