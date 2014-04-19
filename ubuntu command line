@@ -219,7 +219,7 @@ $ sudo chown -R www-data:www-data /var/www
 
 $ ls -la /var/www/example.com
 
-# In case of troubles with upgrades, updates or editinf files:
+# In case of troubles with upgrades, updates or editing files:
 $ sudo chown your-user:www-data * -R
 
 #######################################
@@ -245,7 +245,7 @@ $ sudo mkdir /var/www/example.com/logs && sudo mkdir /var/www/example.com/logs/a
 
 $ nginx -t
 
-# Edit main Nginx file and add all changes:
+# Edit main Nginx file and add all necessary changes:
 
 $ sudo nano /etc/nginx/nginx.conf
 
@@ -261,7 +261,7 @@ $ nginx -t
 $ service nginx status
 
 $ ps aux | grep .nginx: worker process. | awk .{print $1}.
-$ sudo bcbcchown www-data:www-data * -R
+$ sudo chown www-data:www-data * -R
 
 ##########################################
 # Install VARNISH cache server:
@@ -556,6 +556,14 @@ $ sudo rm /etc/nginx/sites-enabled/example.com
 # Repair ownership of robots.txt:
 
 sudo chown www-data:www-data /var/www/example.com/robots.txt
+
+#################################################
+
+Drop the console and head to your browser, enter in the adress field:
+
+http://example.com/wp-admin/install.php
+
+and follow instructions..
 
 #################################################
 # THE END #
