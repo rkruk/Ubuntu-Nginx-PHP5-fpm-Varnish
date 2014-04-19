@@ -124,9 +124,9 @@ $ sudo nano /etc/php5/fpm/php.ini
 
 $ sudo nano /etc/php5/fpm/pool.d/www.conf
 
-#
+# ATTENTION! Change user from www-data to your user-name to avoid al chmod problems in the future!
 # and check this lines:
-    user = www-data
+    user = example-user
     group = www-data
 
     pm = dynamic
@@ -209,18 +209,18 @@ $ cd /var/www/
 
 # Take care of the ownership of wordpress files (pain in the ass with all wordpress updates, caching and securing all data):
 
-$ sudo chown www-data:www-data * -R
-$ sudo usermod -a -G www-data zohak
+$ sudo chown example-user:www-data * -R
+$ sudo usermod -a -G www-data example-user
 $ sudo chmod -R g+w /var/www/example.com
 $ sudo find /var/www/example.com -type d -exec chmod g+s {} \;
-$ sudo chown -R www-data:www-data /var/www
+$ sudo chown -R example-user:www-data /var/www
 
-# Check ownership of files:
+# Check ownership of all /var/www/example.com files:
 
 $ ls -la /var/www/example.com
 
 # In case of troubles with upgrades, updates or editing files:
-$ sudo chown your-user:www-data * -R
+$ sudo chown example-user:www-data * -R
 
 #######################################
 # Lets set up NGINX for example.com
@@ -252,7 +252,7 @@ $ sudo nano /etc/nginx/nginx.conf
 # Change log's ownership:
 
 $ sudo chown www-data:www-data /var/www/example.com/logs -R
-$ sudo chown www-data:www-data /var/log/nginx/ -R
+$ sudo chown www-data:www-data /var/log/nginx/ -R           
 $ sudo chown -R www-data:www-data /var/log/nginx
 $ sudo chmod -R 755 /var/log/nginx
 $ sudo service nginx reload
@@ -261,7 +261,6 @@ $ nginx -t
 $ service nginx status
 
 $ ps aux | grep .nginx: worker process. | awk .{print $1}.
-$ sudo chown www-data:www-data * -R
 
 ##########################################
 # Install VARNISH cache server:
@@ -559,11 +558,11 @@ sudo chown www-data:www-data /var/www/example.com/robots.txt
 
 #################################################
 
-Drop the console and head to your browser, enter in the adress field:
+Drop the console and head to your browser; enter in the adress field:
 
 http://example.com/wp-admin/install.php
 
-and follow instructions..
+and follow instructions to finish your installation.
 
 #################################################
 # THE END #
