@@ -18,7 +18,8 @@
 This is a cheat sheet I use every single time for my own purposes, when I'm setting up a production web server. As it is rather not exciting and time consuming task - I have decided to make a small repo with all those boring things as configs and steps - necessary to set things up and running.. without digging through various manuals, wikis, forums.
 
 Usually I use cloud based virtual servers but it should* works just for any working web server based on Ubuntu.
-<br  />
+<br />
+<br />
 <i> * - Please use your own brain! And don't blindly copy and paste commands to your terminal - for your own safety. <i>
 
 <br />
