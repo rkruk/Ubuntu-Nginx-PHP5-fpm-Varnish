@@ -7,7 +7,7 @@
 
 <i>Additionally, I've added my 'reasonable speed' and efficiency optimisations for small (to medium) size servers (256mb to 2gb processor + 256mb to 3gb RAM).</i>
 
-<i>It is compatible with Ubuntu (tested on 13.04, 13.10 and 14.04), Debian (testing line)- but most of the workflow after carefully read and adapted, should work on any Linux web server.</i>
+<i>It is compatible with Ubuntu (tested on 13.04, 13.10 and 14.04), Debian (testing line)- but most of the workflow after carefully reading can be adapted to any Linux web server installation scenario.</i>
 **   **
 **                                                                                                     **
 
