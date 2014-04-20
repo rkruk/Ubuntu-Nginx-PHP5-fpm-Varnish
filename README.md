@@ -1,9 +1,8 @@
-
-<center>ubuntu-nginx-happiness</center>
-<center>-------------------------------------</center>
+<center>ubuntu-nginx-happiness</center><br/>
+<center>-------------------------------------</center><br/>
 
 <center> HOW TO INSTALL FAST UBUNTU WEBSERVER (VARNISH, PHP5-fpm, NGINX,
- multidomain, http & wordpress)</center>
+ multidomain, http & wordpress)</center><br/>
 
 <center>=============================</center>
 
