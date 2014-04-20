@@ -1,12 +1,21 @@
 #######################################
-# First things first,
 # After starting up Ubuntu VPS, we need to
 # install and edit a few things. 
 #######################################
 
 #######################################
+
+# ADD NEW USER:
+
+$ useradd example-user
+
+# ADD PASSWORD FOR NEW USER:
+
+$ passwd example-user
+
+#######################################
 # ADD USER TO 'SUDO' GROUP:
-#
+
 # In the terminal:
 
 $ visudo
@@ -43,13 +52,13 @@ example-user   ALL=(ALL:ALL) ALL
 # See sudoers(5) for more information on "#include" directives:
 
 #includedir /etc/sudoers.d
-##
+######################################
 
 
 ######################################
-#
+
 # UPGRADE YOUR UBUNTU TO THE LATEST VERSION:
-# log in yourself as a root user:
+# login yourself as a root user:
 
 $ su -
 
@@ -58,10 +67,14 @@ $ apt-get update && apt-get install update-manager-core && apt-get upgrade &&
 do-release-upgrade -d
 
 #######################################
-# Read all instructions with attention,
+# Read and follow all instructions with attention,
 # then when it is prompted reboot & restart your ssh connection
 #######################################
-#
+
+#######################################
+# FIRST THINGS FIRST:
+#######################################
+
 # Install MYSQL database and php5 addon for mysql:
 
 $ sudo apt-get install mysql-server php5-mysql
@@ -72,7 +85,7 @@ $ sudo /usr/bin/mysql_secure_installation
 $ sudo apt-get install nginx
 $ sudo service nginx start
 
-# To check your IP address use this command:
+# To check your IP address - use this command:
 $ ifconfig eth0 | grep inet | awk '{ print $2 }'
 
 # Install PHP5 for wordpress setup:
@@ -120,12 +133,18 @@ $ sudo nano /etc/php5/fpm/php.ini
 
     ; Maximum number of files that can be uploaded via a single request
     max_file_uploads = 50
+    
+
+########################################
+# !! ATTENTION!! 
+# Change user from www-data to your user-name (example-user) to avoid 
+# all problems with uploading files, updatating wordpress or plugins, 
+# maintaining all frontend works in the future!
 ########################################
 
 $ sudo nano /etc/php5/fpm/pool.d/www.conf
 
-# ATTENTION! Change user from www-data to your user-name to avoid al chmod problems in the future!
-# and check this lines:
+# And check/change (default is www-data) this lines:
     user = example-user
     group = www-data
 
@@ -149,15 +168,16 @@ $ sudo mkdir -p /var/www/example.com
 
 $ sudo nano /usr/share/nginx/html/info.php
 
-#
+# and insert following lines:
+
     <?php
      phpinfo();
-    ?>
-#
+    ?> 
 
 $ sudo service nginx restart
 
-# Check example.com/info.php in your browser if everything is fine:
+# Check example.com/info.php in your browser; 
+# and if everything is fine:
 
 $ sudo rm /usr/share/nginx/html/info.php
 
