@@ -68,7 +68,7 @@ do-release-upgrade -d
 
 #######################################
 # Read and follow all instructions with attention,
-# then when it is prompted reboot & restart your ssh connection
+# when it is prompted reboot & restart your ssh connection
 #######################################
 
 #######################################
@@ -239,12 +239,12 @@ $ sudo chown -R example-user:www-data /var/www
 
 $ ls -la /var/www/example.com
 
-# In case of troubles with upgrades, updates or editing files:
+# In case of any troubles with upgrades, updates or editing files:
 $ sudo chown example-user:www-data * -R
 
 #######################################
-# Lets set up NGINX for example.com
-#
+# Set up NGINX for example.com
+#######################################
 
 $ sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/example.com
 $ sudo nano /etc/nginx/sites-available/example.com
@@ -265,7 +265,7 @@ $ sudo mkdir /var/www/example.com/logs && sudo mkdir /var/www/example.com/logs/a
 
 $ nginx -t
 
-# Edit main Nginx file and add all necessary changes:
+# Edit main nginx file, and make all necessary changes:
 
 $ sudo nano /etc/nginx/nginx.conf
 
@@ -290,6 +290,7 @@ $ curl http://repo.varnish-cache.org/debian/GPG-key.txt | apt-key add -
 $ nano /etc/apt/sources.list
 $ sudo apt-get install varnish
 $ sudo nano /etc/default/varnish
+
 ###
 #
     # Should we start varnishd at boot?  Set to "no" to disable.
@@ -377,8 +378,8 @@ $ sudo nano /etc/varnish/default.vcl
     }
     }
 
-###
 #
+###
 
 # Reload configuration:
 
@@ -389,9 +390,9 @@ $ sudo service varnish restart
 
 $ varnishstat
 
-################################################
+###########################################
 # ADDITIONAL PACKAGES TO INSTALL:
-#
+###########################################
 
 # PHP and cache (apc) plus additional 'must have' apps:
 
@@ -399,16 +400,18 @@ $ sudo apt-get install php5-tidy php-pear libpcre3-dev make php5-dev
 $ sudo pear upgrade
 
 $ sudo pecl install apc
+
 # or:
+
 $ sudo apt-get install php-apc
 
 # Reload php5-fpm:
 
 $ sudo service php5-fpm restart
 
-###############################################
+###########################################
 # If you want to have APC cache
-#
+###########################################
 
 $ cp /usr/share/doc/php-apc/apc.php.gz /var/www/example.com/
 $ sudo cp /usr/share/doc/php-apc/apc.php /var/www/example.com/
@@ -420,8 +423,9 @@ $ sudo nano /etc/php5/cli/conf.d/20-apcu.ini
 # I decided to remove apc.php because I had no use for it and for security reasons:
 $ sudo rm -rf /var/www/example.com/apc.php
 
-################################################
+##########################################
 # Additional 'after install' aps to install:
+##########################################
 
 $ sudo apt-get install php5-gd php5-freetype php5-curl php5-apc php-pear php-devel httpd-devel gcc make zlib-devel pcre-devel libpcre3-dev zlib1g-dev libncurses5-dev
 
@@ -429,7 +433,8 @@ $ sudo apt-get install php5-gd php5-freetype php5-curl php5-apc php-pear php-dev
 
 $ cd /var/www/example.conf && sudo nano robots.txt
 
-##
+###
+#
     Sitemap: http://webs.bz/sitemap_index.xml
     # Google Image
     User-agent: Googlebot-Image
@@ -458,11 +463,14 @@ $ cd /var/www/example.conf && sudo nano robots.txt
     Disallow: */comments/
     Disallow: /*?
     Allow: /wp-content/uploads/
-##
+
+#
+###
 
 $ sudo nano /etc/hosts
 
-##
+###
+#
     127.0.0.1       localhost
     # The following lines are desirable for IPv6 capable hosts
     ::1     ip6-localhost ip6-loopback
@@ -473,8 +481,8 @@ $ sudo nano /etc/hosts
     ff02::3 ip6-allhosts
     192.168.0.1  hostname
     192.168.0.1  hostname.example.com hostname
-
-##
+#
+###
 
 # If you don't know your's server hostname:
 
@@ -482,10 +490,12 @@ $ sudo hostname -F /etc/hostname
 
 ###################################
 # Secure a few things:
+###################################
 
 $ sudo nano /etc/sysctl.conf
 
-##
+###
+#
     # Uncomment the next two lines to enable Spoof protection (reverse-path filter)
     # Turn on Source Address Verification in all interfaces to
     # prevent some spoofing attacks
@@ -525,7 +535,9 @@ $ sudo nano /etc/sysctl.conf
     # Ignore ICMP broadcast requests
     net.ipv4.icmp_echo_ignore_broadcasts = 1
 
-##
+#
+###
+
 ##################################################
 # Check things up:
 
