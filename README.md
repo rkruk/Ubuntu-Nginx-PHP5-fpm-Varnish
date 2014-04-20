@@ -1,28 +1,29 @@
-**                                                                     ubuntu-nginx-happiness**
 
-**                                                          =============================**
+<center>ubuntu-nginx-happiness</center>
+<center>-------------------------------------</center>
+
+<center> HOW TO INSTALL FAST UBUNTU WEBSERVER (VARNISH, PHP5-fpm, NGINX,
+ multidomain, http & wordpress)</center>
+
+<center>=============================</center>
 
 <br />
 <b>Step by step:</b>  console commands, config files and real life examples for setting up the web server based on <b>Ubuntu</b> + <b>NGINX</b> + <b>Varnish</b>.
+<br/>
+<i>Additionally, I've added my 'reasonable speed' and efficiency optimizations for small (to medium) size servers (256mb to 2gb processor + 256mb to 3gb RAM).</i>
 
-<i>Additionally, I've added my 'reasonable speed' and efficiency optimisations for small (to medium) size servers (256mb to 2gb processor + 256mb to 3gb RAM).</i>
+<i>It is compatible with Ubuntu (tested on 13.04, 13.10 and 14.04), Debian (testing line)- but most of the work flow after carefully reading can be adapted to any Linux web server installation scenario.</i>
+<br />
 
-<i>It is compatible with Ubuntu (tested on 13.04, 13.10 and 14.04), Debian (testing line)- but most of the workflow after carefully reading can be adapted to any Linux web server installation scenario.</i>
-**   **
-**                                                                                                     **
 
-This is a cheat sheet I use every single time for my own purposes, when I'm setting up a production web server. As it is rather not exciting and time consuming task - I have decided to make a small repo with all those boring things as configs and steps - necessary to set thigs up and running.. without digging through various manuals, wikis, forums.
+This is a cheat sheet I use every single time for my own purposes, when I'm setting up a production web server. As it is rather not exciting and time consuming task - I have decided to make a small repo with all those boring things as configs and steps - necessary to set things up and running.. without digging through various manuals, wikis, forums.
 
 Usually I use cloud based virtual servers but it should* works just for any working web server based on Ubuntu.
-<br />
-<br />
+<br  />
 <i> * - Please use your own brain! And don't blindly copy and paste commands to your terminal - for your own safety. <i>
-**                                                                                                     **
-**   **
 
 <br />
-**                              How you should read files hierarchy:**
-<b> How you should read files hierarchy: </b>
+<center><b> How you should read files hierarchy: </b></center>
 <br />
 
 <b> / </b>    (root)
