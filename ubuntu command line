@@ -3,6 +3,8 @@
 # install and edit a few things. 
 #######################################
 
+                ***
+
 #######################################
 
 # ADD NEW USER:
@@ -54,6 +56,7 @@ example-user   ALL=(ALL:ALL) ALL
 #includedir /etc/sudoers.d
 ######################################
 
+                 ***
 
 ######################################
 
@@ -70,6 +73,8 @@ do-release-upgrade -d
 # Read and follow all instructions with attention,
 # when it is prompted reboot & restart your ssh connection
 #######################################
+
+                ***
 
 #######################################
 # FIRST THINGS FIRST:
@@ -182,6 +187,10 @@ $ sudo service nginx restart
 $ sudo rm /usr/share/nginx/html/info.php
 
 #######################################
+
+                ***
+
+#######################################
 # Time to install Wordpress:
 
 $ wget http://wordpress.org/latest.tar.gz
@@ -243,6 +252,10 @@ $ ls -la /var/www/example.com
 $ sudo chown example-user:www-data * -R
 
 #######################################
+
+                 ***
+
+#######################################
 # Set up NGINX for example.com
 #######################################
 
@@ -281,6 +294,10 @@ $ nginx -t
 $ service nginx status
 
 $ ps aux | grep .nginx: worker process. | awk .{print $1}.
+
+##########################################
+
+                  ***
 
 ##########################################
 # Install VARNISH cache server:
@@ -391,6 +408,10 @@ $ sudo service varnish restart
 $ varnishstat
 
 ###########################################
+
+                  ***
+
+###########################################
 # ADDITIONAL PACKAGES TO INSTALL:
 ###########################################
 
@@ -487,6 +508,10 @@ $ sudo nano /etc/hosts
 # If you don't know your's server hostname:
 
 $ sudo hostname -F /etc/hostname
+
+###################################
+
+               ***
 
 ###################################
 # Secure a few things:
@@ -596,6 +621,7 @@ http://example.com/wp-admin/install.php
 
 and follow instructions to finish your installation.
 
+
 #################################################
-# THE END #
+##################%- THE END -%##################
 #################################################
