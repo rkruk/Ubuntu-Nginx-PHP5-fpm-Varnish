@@ -21,7 +21,11 @@ Usually I use cloud based virtual servers but it should* works just for any work
 <br />
 <br />
 <i> * - Please use your own brain! And don't blindly copy and paste commands to your terminal - for your own safety. <i>
-
+<br />
+<br />
+<center><b>Follow instructions from 'ubuntu command line' file.</b></center><br />
+'Ubuntu command line' file contains all console commands, instructions, and file examples needed for complete installation.
+<br />
 <br />
 <center><b> How you should read files hierarchy: </b></center>
 <br />
