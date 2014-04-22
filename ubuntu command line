@@ -7,7 +7,7 @@
 
                 ***
 
-#######################################
+############################################
 
 # ADD NEW USER:
 
@@ -17,7 +17,7 @@ $ useradd example-user
 
 $ passwd example-user
 
-#######################################
+############################################
 # ADD USER TO 'SUDO' GROUP:
 
 # In the terminal:
@@ -25,13 +25,13 @@ $ passwd example-user
 $ visudo
 
 # Add one line after root user section:
-#######################################
+############################################
 # User privilege specification
 root    ALL=(ALL:ALL) ALL
 # Add your user to sudo group:
 example-user   ALL=(ALL:ALL) ALL
 
-#######################################
+############################################
 # Here is visudo file full example:
 
 Defaults        env_reset
@@ -56,11 +56,11 @@ example-user   ALL=(ALL:ALL) ALL
 # See sudoers(5) for more information on "#include" directives:
 
 #includedir /etc/sudoers.d
-########################################
+############################################
 
                  ***
 
-########################################
+############################################
 
 # UPGRADE YOUR UBUNTU TO THE LATEST VERSION:
 # login yourself as a root user:
@@ -71,16 +71,16 @@ $ su -
 $ apt-get update && apt-get install update-manager-core && apt-get upgrade && 
 do-release-upgrade -d
 
-########################################
+############################################
 # Read and follow all instructions with attention,
 # when it is prompted reboot & restart your ssh connection
-########################################
+############################################
 
                 ***
 
-#######################################
+############################################
 # FIRST THINGS FIRST:
-#######################################
+############################################
 
 # Install MYSQL database and php5 addon for mysql:
 
@@ -98,9 +98,9 @@ $ ifconfig eth0 | grep inet | awk '{ print $2 }'
 # Install PHP5 for wordpress setup:
 $ sudo apt-get install php5-fpm php-pear php5-dev
 
-#######################################
+############################################
 # Edit files:
-#######################################
+############################################
 
 $ sudo nano /etc/php5/fpm/php.ini
 
@@ -142,12 +142,12 @@ $ sudo nano /etc/php5/fpm/php.ini
     max_file_uploads = 50
 
 
-########################################
+############################################
 # !! ATTENTION!!
 # Change user from www-data to your user-name (example-user) to avoid
 # all problems with uploading files, updatating wordpress or plugins,
 # maintaining all frontend works in the future!
-########################################
+############################################
 
 $ sudo nano /etc/php5/fpm/pool.d/www.conf
 
@@ -158,19 +158,19 @@ $ sudo nano /etc/php5/fpm/pool.d/www.conf
     pm = dynamic
     pm.max_children = 5
 
-########################################
+############################################
 
 # Reload php5-fpm configuration:
 
 $ sudo service php5-fpm restart
 
-########################################
+############################################
 # Prepare directories for websites:
 
 $ sudo mkdir -p /var/www
 $ sudo mkdir -p /var/www/example.com
 
-########################################
+############################################
 # Check all php variables by setting up info.php:
 
 $ sudo nano /usr/share/nginx/html/info.php
@@ -188,18 +188,18 @@ $ sudo service nginx restart
 
 $ sudo rm /usr/share/nginx/html/info.php
 
-#######################################
+############################################
 
                 ***
 
-#######################################
+############################################
 # Time to install Wordpress:
 
 $ wget http://wordpress.org/latest.tar.gz
 $ ls
 $ tar -xzvf latest.tar.gz
 
-#######################################
+############################################
 # Prepare MYSQL database for Wordpress installation:
 
 $ mysql -u root -p
@@ -226,7 +226,7 @@ $ mysql -u root -p
     Bye
     $
 
-#######################################
+############################################
 # Wordpress continue:
 
 $ cp ~/wordpress/wp-config-sample.php ~/wordpress/wp-config.php
@@ -254,13 +254,13 @@ $ ls -la /var/www/example.com
 # In case of any troubles with upgrades, updates or editing files:
 $ sudo chown example-user:www-data * -R
 
-#######################################
+############################################
 
                  ***
 
-#######################################
+############################################
 # Set up NGINX for example.com
-#######################################
+############################################
 
 $ sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/example.com
 $ sudo nano /etc/nginx/sites-available/example.com
@@ -298,13 +298,13 @@ $ service nginx status
 
 $ ps aux | grep .nginx: worker process. | awk .{print $1}.
 
-##########################################
+############################################
 
                   ***
 
-##########################################
+############################################
 # Install VARNISH cache server:
-##########################################
+############################################
 
 $ curl http://repo.varnish-cache.org/debian/GPG-key.txt | apt-key add -
 $ nano /etc/apt/sources.list
@@ -410,13 +410,13 @@ $ sudo service varnish restart
 
 $ varnishstat
 
-###########################################
+############################################
 
                   ***
 
-###########################################
+############################################
 # ADDITIONAL PACKAGES TO INSTALL:
-###########################################
+############################################
 
 # PHP and cache (apc) plus additional 'must have' apps:
 
@@ -433,9 +433,9 @@ $ sudo apt-get install php-apc
 
 $ sudo service php5-fpm restart
 
-###########################################
+############################################
 # If you want to have APC cache
-###########################################
+############################################
 
 $ cp /usr/share/doc/php-apc/apc.php.gz /var/www/example.com/
 $ sudo cp /usr/share/doc/php-apc/apc.php /var/www/example.com/
@@ -447,13 +447,13 @@ $ sudo nano /etc/php5/cli/conf.d/20-apcu.ini
 # I decided to remove apc.php because I had no use for it and for security reasons:
 $ sudo rm -rf /var/www/example.com/apc.php
 
-##########################################
+############################################
 # Additional 'after aps installation' follow up:
-##########################################
+############################################
 
 $ sudo apt-get install php5-gd php5-freetype php5-curl php5-apc php-pear php-devel httpd-devel gcc make zlib-devel pcre-devel libpcre3-dev zlib1g-dev libncurses5-dev
 
-################################################
+############################################
 
 $ cd /var/www/example.conf && sudo nano robots.txt
 
@@ -512,13 +512,13 @@ $ sudo nano /etc/hosts
 
 $ sudo hostname -F /etc/hostname
 
-###################################
+############################################
 
                ***
 
-###################################
+############################################
 # Secure a few things:
-###################################
+############################################
 
 $ sudo nano /etc/sysctl.conf
 
@@ -566,9 +566,9 @@ $ sudo nano /etc/sysctl.conf
 #
 ###
 
-##################################################
+############################################
 # Bits and pieces to check and apply:
-##################################################
+############################################
 
 $ sudo sysctl -p
 
@@ -585,7 +585,7 @@ $ sudo apt-get install dnsutils
 $ host -t mx example.com
 $ curl http://example.com | tail -n 4 && echo -e
 
-#################################################
+############################################
 # W3C TOTAL CACHE - server side:
 
 $ sudo apt-get install php-apc php5-apcu memcached php5-memcache php-pear build-essential && sudo pecl install memcache
@@ -595,12 +595,12 @@ $ sudo nano /etc/php5/cli/conf.d/memcache.ini
 $ ps aux | grep memcache
 $ sudo service varnish restart && sudo service nginx restart
 
-#################################################
+############################################
 # BULLETPROOF HTACCESS:
 
 $ sudo nano /var/www/example.com/.htaccess
 
-#################################################
+############################################
 # Backup example.com file:
 
 $ sudo cp /etc/nginx/sites-available/example.com /etc/nginx/sites-available/backup_example.com
@@ -617,7 +617,7 @@ $ sudo rm /etc/nginx/sites-enabled/example.com
 
 sudo chown www-data:www-data /var/www/example.com/robots.txt
 
-#################################################
+############################################
 
 Drop the console and head to your browser; enter in the adress field:
 
@@ -626,6 +626,6 @@ http://example.com/wp-admin/install.php
 and follow instructions to finish your installation.
 
 
-#################################################
-##################%- THE END -%##################
-#################################################
+############################################
+###############%- THE END -%################
+############################################
