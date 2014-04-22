@@ -1,7 +1,9 @@
-#######################################
+############################################
+#
 # After starting up Ubuntu VPS, we need to
-# install and edit a few things. 
-#######################################
+# install and edit a few things.
+#
+############################################
 
                 ***
 
@@ -54,11 +56,11 @@ example-user   ALL=(ALL:ALL) ALL
 # See sudoers(5) for more information on "#include" directives:
 
 #includedir /etc/sudoers.d
-######################################
+########################################
 
                  ***
 
-######################################
+########################################
 
 # UPGRADE YOUR UBUNTU TO THE LATEST VERSION:
 # login yourself as a root user:
@@ -69,10 +71,10 @@ $ su -
 $ apt-get update && apt-get install update-manager-core && apt-get upgrade && 
 do-release-upgrade -d
 
-#######################################
+########################################
 # Read and follow all instructions with attention,
 # when it is prompted reboot & restart your ssh connection
-#######################################
+########################################
 
                 ***
 
@@ -138,12 +140,12 @@ $ sudo nano /etc/php5/fpm/php.ini
 
     ; Maximum number of files that can be uploaded via a single request
     max_file_uploads = 50
-    
+
 
 ########################################
-# !! ATTENTION!! 
-# Change user from www-data to your user-name (example-user) to avoid 
-# all problems with uploading files, updatating wordpress or plugins, 
+# !! ATTENTION!!
+# Change user from www-data to your user-name (example-user) to avoid
+# all problems with uploading files, updatating wordpress or plugins,
 # maintaining all frontend works in the future!
 ########################################
 
@@ -177,11 +179,11 @@ $ sudo nano /usr/share/nginx/html/info.php
 
     <?php
      phpinfo();
-    ?> 
+    ?>
 
 $ sudo service nginx restart
 
-# Check example.com/info.php in your browser; 
+# Check example.com/info.php in your browser;
 # and if everything is fine:
 
 $ sudo rm /usr/share/nginx/html/info.php
@@ -199,6 +201,7 @@ $ tar -xzvf latest.tar.gz
 
 #######################################
 # Prepare MYSQL database for Wordpress installation:
+
 $ mysql -u root -p
 
 # And follow instructions on the screen as below:
@@ -206,22 +209,22 @@ $ mysql -u root -p
 
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 5340 to server version: 3.23.54
-     
+
     Type 'help;' or '\h' for help. Type '\c' to clear the buffer.
-     
+
     mysql> CREATE DATABASE databasename;
     Query OK, 1 row affected (0.00 sec)
-     
+
     mysql> GRANT ALL PRIVILEGES ON databasename.* TO "wordpressusername"@"hostname"
         -> IDENTIFIED BY "password";
     Query OK, 0 rows affected (0.00 sec)
-      
+
     mysql> FLUSH PRIVILEGES;
     Query OK, 0 rows affected (0.01 sec)
 
     mysql> EXIT
     Bye
-    $ 
+    $
 
 #######################################
 # Wordpress continue:
@@ -285,7 +288,7 @@ $ sudo nano /etc/nginx/nginx.conf
 # Change log's ownership:
 
 $ sudo chown www-data:www-data /var/www/example.com/logs -R
-$ sudo chown www-data:www-data /var/log/nginx/ -R           
+$ sudo chown www-data:www-data /var/log/nginx/ -R
 $ sudo chown -R www-data:www-data /var/log/nginx
 $ sudo chmod -R 755 /var/log/nginx
 $ sudo service nginx reload
@@ -301,7 +304,7 @@ $ ps aux | grep .nginx: worker process. | awk .{print $1}.
 
 ##########################################
 # Install VARNISH cache server:
-#
+##########################################
 
 $ curl http://repo.varnish-cache.org/debian/GPG-key.txt | apt-key add -
 $ nano /etc/apt/sources.list
@@ -328,10 +331,10 @@ $ sudo nano /etc/varnish/default.vcl
 #
     # This is a basic VCL configuration file for varnish.  See the vcl(7)
     # man page for details on VCL syntax and semantics.
-    # 
+    #
     # Default backend definition.  Set this to point to your content
     # server.
-    # 
+    #
     backend default {
     .host = "127.0.0.1";
     .port = "8080";
@@ -445,7 +448,7 @@ $ sudo nano /etc/php5/cli/conf.d/20-apcu.ini
 $ sudo rm -rf /var/www/example.com/apc.php
 
 ##########################################
-# Additional 'after install' aps to install:
+# Additional 'after aps installation' follow up:
 ##########################################
 
 $ sudo apt-get install php5-gd php5-freetype php5-curl php5-apc php-pear php-devel httpd-devel gcc make zlib-devel pcre-devel libpcre3-dev zlib1g-dev libncurses5-dev
@@ -564,7 +567,8 @@ $ sudo nano /etc/sysctl.conf
 ###
 
 ##################################################
-# Check things up:
+# Bits and pieces to check and apply:
+##################################################
 
 $ sudo sysctl -p
 
