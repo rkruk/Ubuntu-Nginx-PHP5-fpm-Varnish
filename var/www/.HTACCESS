@@ -167,8 +167,14 @@ Deny from all
 
 # BLOCK HOTLINKING TO IMAGES
 # To Test that your Hotlinking protection is working visit http://altlab.com/htaccess_tutorial.html
+#
+#
+# /// *** !!! ATTENTION !!! *** \\\
+#
+# Change '?example\.com' to your domain name (do not remove question mark!)
+#
 RewriteEngine On
-RewriteCond %{HTTP_REFERER} !^https?://(www\.)?webs\.bz [NC]
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?example\.com [NC]
 RewriteCond %{HTTP_REFERER} !^$
 RewriteRule .*\.(jpeg|jpg|gif|bmp|png)$ - [F]
 
