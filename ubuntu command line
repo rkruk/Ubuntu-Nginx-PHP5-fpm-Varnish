@@ -455,11 +455,11 @@ $ sudo apt-get install php5-gd php5-freetype php5-curl php5-apc php-pear php-dev
 
 ############################################
 
-$ cd /var/www/example.conf && sudo nano robots.txt
+$ cd /var/www/example.com && sudo nano robots.txt
 
 ###
 #
-    Sitemap: http://webs.bz/sitemap_index.xml
+    Sitemap: http://example.com/sitemap_index.xml
     # Google Image
     User-agent: Googlebot-Image
     Disallow:
