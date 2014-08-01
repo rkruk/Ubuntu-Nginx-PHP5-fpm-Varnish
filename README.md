@@ -54,4 +54,4 @@ Usually I use cloud based virtual servers but it should* works just for any work
 
         |
 
-        ---&gt;/var/www (here are dragons)
+        ---&gt;/var/www (here are the dragons)
