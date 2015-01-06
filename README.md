@@ -29,29 +29,30 @@ Usually I use cloud based virtual servers but it should* works just for any work
 <br />
 <center><b> How you should read files hierarchy: </b></center>
 <br />
-
-<b> / </b> '''   (root)
+```
+ /   (root)
 
  |
 
-  ---&gt; /etc
+   --> /etc
 
  |        |
 
- |        ---&gt; /etc/nginx
+ |         /etc/nginx
 
  |                     |
 
- |                     ---&gt; /etc/nginx/html (for 50.. sites)
+ |                      /etc/nginx/html (for 50.. sites)
 
- |                     ---&gt; /etc/nginx/sites-available (template configs for websites)
+ |                      /etc/nginx/sites-available (template configs for websites)
 
- |                     ---&gt; /etc/nginx/sites-enabled (enabled template configs)
+ |                      /etc/nginx/sites-enabled (enabled template configs)
 
  |
 
- ---&gt; /var
+ --> /var
 
         |
 
-        ---&gt;/var/www (here are the dragons)'''
+        /var/www (here are the dragons)
+        
