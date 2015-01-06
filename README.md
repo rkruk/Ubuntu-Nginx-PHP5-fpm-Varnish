@@ -30,7 +30,7 @@ Usually I use cloud based virtual servers but it should* works just for any work
 <center><b> How you should read files hierarchy: </b></center>
 <br />
 
-<b> / </b>    (root)
+<b> / </b> '''   (root)
 
  |
 
@@ -54,4 +54,4 @@ Usually I use cloud based virtual servers but it should* works just for any work
 
         |
 
-        ---&gt;/var/www (here are the dragons)
+        ---&gt;/var/www (here are the dragons)'''
