@@ -729,11 +729,11 @@ dt {
   color: white;
   border: 1px solid #9A9C9C;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #9A9C9C), color-stop(100%, #9A9C9C));
-  background: -webkit-linear-gradient(#93bd20, #9A9C9C);
-  background: -moz-linear-gradient(#93bd20, #9A9C9C);
-  background: -o-linear-gradient(#93bd20, #9A9C9C);
-  background: -ms-linear-gradient(#93bd20, #9A9C9C);
-  background: linear-gradient(#93bd20, #9A9C9C);
+  background: -webkit-linear-gradient(#57A6BF, #0584AB);
+  background: -moz-linear-gradient(#57A6BF, #0584AB);
+  background: -o-linear-gradient(#57A6BF, #0584AB);
+  background: -ms-linear-gradient(#57A6BF, #0584AB);
+  background: linear-gradient(#57A6BF, #0584AB);
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   -o-border-radius: 2px;
