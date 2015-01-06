@@ -136,11 +136,17 @@ $ sudo nano /etc/php5/fpm/php.ini
 
     ; Maximum allowed size for uploaded files.
     ; http://php.net/upload-max-filesize
+    ; add here as much as you want to:
     upload_max_filesize = 100M
 
     ; Maximum number of files that can be uploaded via a single request
+    ; change defaults to the numbers you need:
     max_file_uploads = 50
 
+
+--> Save & CLose
+
+Next file: 
 
 ############################################
 # !! ATTENTION!!
@@ -158,6 +164,9 @@ $ sudo nano /etc/php5/fpm/pool.d/www.conf
     pm = dynamic
     pm.max_children = 5
 
+
+--> Save & Close
+
 ############################################
 
 # Reload php5-fpm configuration:
@@ -171,7 +180,7 @@ $ sudo mkdir -p /var/www
 $ sudo mkdir -p /var/www/example.com
 
 ############################################
-# Check all php variables by setting up info.php:
+# Check all required php variables by setting up info.php:
 
 $ sudo nano /usr/share/nginx/html/info.php
 
@@ -184,14 +193,16 @@ $ sudo nano /usr/share/nginx/html/info.php
 $ sudo service nginx restart
 
 # Check example.com/info.php in your browser;
-# and if everything is fine:
+# and if everything is fine remove it (security):
 
 $ sudo rm /usr/share/nginx/html/info.php
 
 ############################################
 
                 ***
-
+                
+############################################
+THIS PART IS FOR WORDPRESS CONFIGURATION:
 ############################################
 # Time to install Wordpress:
 
@@ -227,8 +238,8 @@ $ mysql -u root -p
     $
 
 ############################################
-# Wordpress continue:
-
+# WORDPRESS continue:
+############################################
 $ cp ~/wordpress/wp-config-sample.php ~/wordpress/wp-config.php
 $ ls ~/wordpress/
 $ sudo nano ~/wordpress/wp-config.php
@@ -448,7 +459,7 @@ $ sudo nano /etc/php5/cli/conf.d/20-apcu.ini
 $ sudo rm -rf /var/www/example.com/apc.php
 
 ############################################
-# Additional 'after aps installation' follow up:
+# Additional 'after installation' follow up:
 ############################################
 
 $ sudo apt-get install php5-gd php5-freetype php5-curl php5-apc php-pear php-devel httpd-devel gcc make zlib-devel pcre-devel libpcre3-dev zlib1g-dev libncurses5-dev
@@ -457,8 +468,9 @@ $ sudo apt-get install php5-gd php5-freetype php5-curl php5-apc php-pear php-dev
 
 $ cd /var/www/example.com && sudo nano robots.txt
 
-###
-#
+############################################
+# ROBOTS.TXT file (allow/disallow):
+############################################
     Sitemap: http://example.com/sitemap_index.xml
     # Google Image
     User-agent: Googlebot-Image
@@ -488,9 +500,10 @@ $ cd /var/www/example.com && sudo nano robots.txt
     Disallow: /*?
     Allow: /wp-content/uploads/
 
-#
+############################################
 ###
-
+# host names setup (change 'hostname' to your's server hostname): 
+##
 $ sudo nano /etc/hosts
 
 ###
@@ -514,11 +527,12 @@ $ sudo hostname -F /etc/hostname
 
 ############################################
 
-               ***
 
+               ***
 ############################################
-# Secure a few things:
+# SECURITY: 
 ############################################
+Edit files ->
 
 $ sudo nano /etc/sysctl.conf
 
@@ -586,7 +600,9 @@ $ host -t mx example.com
 $ curl http://example.com | tail -n 4 && echo -e
 
 ############################################
-# W3C TOTAL CACHE - server side:
+# WORDPRESS CACHE PLUGIN W3C TOTAL CACHE CONFIG:
+############################################
+# W3C TOTAL CACHE - server side configuration:
 
 $ sudo apt-get install php-apc php5-apcu memcached php5-memcache php-pear build-essential && sudo pecl install memcache
 $ echo "extension=memcache.so" | sudo tee /etc/php5/conf.d/memcache.ini
@@ -597,12 +613,14 @@ $ sudo service varnish restart && sudo service nginx restart
 
 ############################################
 # BULLETPROOF HTACCESS:
-
+############################################
 $ sudo nano /var/www/example.com/.htaccess
 
-############################################
-# Backup example.com file:
+TODO!
 
+############################################
+# Backup example.com config file:
+############################################
 $ sudo cp /etc/nginx/sites-available/example.com /etc/nginx/sites-available/backup_example.com
 
 # And rename it (if you host more than one website- your IP server will serve website in alphabetical order):
@@ -613,17 +631,22 @@ $ sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/aaa
 
 $ sudo rm /etc/nginx/sites-enabled/example.com
 
+############################################
 # Repair ownership of robots.txt:
-
+############################################
 sudo chown www-data:www-data /var/www/example.com/robots.txt
 
-############################################
 
+############################################
+# WORDPRESS - INSTALLATION (LAST PART):
+############################################
 Drop the console and head to your browser; enter in the adress field:
 
 http://example.com/wp-admin/install.php
 
-and follow instructions to finish your installation.
+And follow instructions to finish your installation. 
+Add user (please do not set your's username as 'admin') 
+& password (generate secure one (random, mixed numbers, letters, etc and long)).
 
 
 ############################################
