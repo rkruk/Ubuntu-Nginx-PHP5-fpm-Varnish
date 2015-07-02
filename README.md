@@ -1,11 +1,11 @@
 <p align="center">![alt tag](https://github.com/rkruk/Ubuntu-Nginx-PHP5-fpm-Varnish/blob/master/images/linux-ubuntu-nginx-mysql-php-wordpress.jpg)
-## <p align="center"><b> HOW TO INSTALL FAST UBUNTU WEBSERVER </b>
-## <p align="center">with 
-## <p align="center">VARNISH, PHP5-fpm, NGINX
-## <p align="center"> +
-## <p align="center">Multidomain Setup
-## <p align="center"> for
-## <p align="center">HTML Websites & Wordpress)
+ <p align="center"><b> HOW TO INSTALL FAST UBUNTU WEBSERVER </b>
+ <p align="center">with 
+ <p align="center">VARNISH, PHP5-fpm, NGINX
+ <p align="center"> +
+ <p align="center">Multidomain Setup
+ <p align="center"> for
+ <p align="center">HTML Websites & Wordpress)
 <br>
 <br>
 <p align="center"><b>***</b>
