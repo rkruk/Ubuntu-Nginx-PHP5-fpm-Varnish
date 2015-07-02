@@ -9,7 +9,7 @@
 <br>
 <br>
 <p align="center"><b>***</b>
-#### <p align="center"><b> Step by step: </b> <br> 
+<p align="center"><b> Step by step: </b> <br> 
 
  Console commands, configuration files and real life examples for setting up Web Server based on <b>Ubuntu</b> + <b>NGINX</b> + <b>Varnish</b> + <b>WORDPRESS</b> + <b>HTML Websites</b>. <br> 
  
@@ -31,7 +31,7 @@ Usually I use cloud based virtual servers but it <i>should</i> works just for an
 'Ubuntu command line' file contains all console commands, instructions, and file examples needed for complete installation.
 <br />
 <br />
-<center><b> How you should read files hierarchy: </b></center>
+<p align="center"><b> How you should read files hierarchy: </b>
 <br />
 ```
  /   (root)
