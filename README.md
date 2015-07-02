@@ -23,10 +23,10 @@ This is a cheat sheet I use every single time for my own server installs, when I
 
 Usually I use cloud based virtual servers but it <i>should</i> works just for any working web server based on Ubuntu. <br> 
 <br> 
-<b> <i> Please use your own brain! And don't blindly copy and paste commands to your terminal - for your own safety. </i></b> <br> 
+<b> <i> Please use your own brain! Don't blindly copy & paste commands to your terminal - for your own safety. </i></b> <br> 
 <br> 
-<p align="center"><b>Follow instructions 
-<p align="center"><b>from 'ubuntu command line' file. <br> 
+<p align="center"><b>Follow instructions </b> 
+<p align="center"><b>from 'ubuntu command line' file. </b><br> 
 
 'Ubuntu command line' file contains all console commands, instructions, and file examples needed for complete installation.
 <br />
