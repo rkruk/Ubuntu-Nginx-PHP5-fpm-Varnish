@@ -35,30 +35,30 @@ Usually I use cloud based virtual servers but it <i>should</i> works just for an
 <br />
 <p align="center"><b> How you should read files hierarchy: </b>
 <br />
-```
+
  /   (root)
 
- |
+  |
 
-   --> /etc
+    --> /etc
 
- |        |
+  |        |
 
- |         /etc/nginx
+  |         /etc/nginx
 
- |                     |
+  |                     |
 
- |                      /etc/nginx/html (for 50.. sites)
+  |                      /etc/nginx/html (for 50.. sites)
 
- |                      /etc/nginx/sites-available (template configs for websites)
+  |                      /etc/nginx/sites-available (template configs for websites)
 
- |                      /etc/nginx/sites-enabled (enabled template configs)
+  |                      /etc/nginx/sites-enabled (enabled template configs)
 
- |
+  |
 
- --> /var
+   --> /var
 
-        |
+          |
 
-        /var/www (here are the dragons)
+          /var/www (here are the dragons)
         
