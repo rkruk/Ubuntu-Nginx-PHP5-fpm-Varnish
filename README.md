@@ -1,4 +1,6 @@
-<p align="center">![alt tag](https://github.com/rkruk/Ubuntu-Nginx-PHP5-fpm-Varnish/blob/master/images/linux-ubuntu-nginx-mysql-php-wordpress.jpg)
+<p align="center">
+  <img width="260" height="161" src="https://github.com/rkruk/Ubuntu-Nginx-PHP5-fpm-Varnish/blob/master/images/linux-ubuntu-nginx-mysql-php-wordpress.jpg">
+</p>
  <p align="center"><b> HOW TO INSTALL FAST UBUNTU WEBSERVER </b>
  <p align="center">with 
  <p align="center">VARNISH, PHP5-fpm, NGINX
@@ -15,7 +17,7 @@
  
 <i>Additionally, I've added my 'reasonable speed' and efficiency optimizations for small (to medium) size servers (256mb to 2gb processor + 256mb to 3gb RAM).</i> <br> 
 
-<i>This instructions are 100% compatible with Ubuntu (tested on 13.04, 13.10, 14.04, 14.10 and 15.04), Debian (testing line)- but most of the work flow after carefully reading can be adapted to any Linux web server installation scenario.</i> <br>
+<i>This instructions are 100% compatible with Ubuntu (tested from 13.04 to 18.04.1), Debian (testing line)- but most of the workflow after carefully reading can be adapted to any Linux web server installation scenario.</i> <br>
 <br>
 
 
