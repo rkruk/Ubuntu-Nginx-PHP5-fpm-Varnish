@@ -6,6 +6,7 @@
 ############################################
 
                 ***
+                 *
 
 ############################################
 
@@ -59,15 +60,19 @@ example-user   ALL=(ALL:ALL) ALL
 ############################################
 
                  ***
+                  *
 
 ############################################
 
-# UPGRADE YOUR UBUNTU TO THE LATEST VERSION:
+# UPGRADE YOUR UBUNTU TO THE LATEST VERSION (or If you prefer LTS do not 
+# 'do-release-upgrade -d' if you don't want it to be non LTS).
+
 # login yourself as a root user:
 
 $ su -
 
 # and begin upgrade process:
+
 $ apt-get update && apt-get install update-manager-core && apt-get upgrade && 
 do-release-upgrade -d
 
@@ -77,6 +82,7 @@ do-release-upgrade -d
 ############################################
 
                 ***
+                 *
 
 ############################################
 # FIRST THINGS FIRST:
@@ -89,14 +95,18 @@ $ sudo mysql_install_db
 $ sudo /usr/bin/mysql_secure_installation
 
 # Install and start NGINX:
+
 $ sudo apt-get install nginx
 $ sudo service nginx start
 
 # To check your IP address - use this command:
+
 $ ifconfig eth0 | grep inet | awk '{ print $2 }'
 
 # Install PHP5 for wordpress setup:
+
 $ sudo apt-get install php5-fpm php-pear php5-dev
+
 
 ############################################
 # Edit files:
@@ -143,21 +153,23 @@ $ sudo nano /etc/php5/fpm/php.ini
     ; change defaults to the numbers you need:
     max_file_uploads = 50
 
-
+#
 --> Save & CLose
 
-Next file: 
+
+Next file to edit: 
 
 ############################################
 # !! ATTENTION!!
 # Change user from www-data to your user-name (example-user) to avoid
 # all problems with uploading files, updatating wordpress or plugins,
-# maintaining all frontend works in the future!
+# maintaining all frontend works in the future! 
 ############################################
 
 $ sudo nano /etc/php5/fpm/pool.d/www.conf
 
 # And check/change (default is www-data) this lines:
+
     user = example-user
     group = www-data
 
@@ -165,6 +177,7 @@ $ sudo nano /etc/php5/fpm/pool.d/www.conf
     pm.max_children = 5
 
 
+#
 --> Save & Close
 
 ############################################
@@ -184,22 +197,27 @@ $ sudo mkdir -p /var/www/example.com
 
 $ sudo nano /usr/share/nginx/html/info.php
 
+
 # and insert following lines:
 
     <?php
      phpinfo();
     ?>
 
+
 $ sudo service nginx restart
 
 # Check example.com/info.php in your browser;
 # and if everything is fine remove it (security):
 
+
 $ sudo rm /usr/share/nginx/html/info.php
+
 
 ############################################
 
                 ***
+                 *
                 
 ############################################
 THIS PART IS FOR WORDPRESS CONFIGURATION:
@@ -210,10 +228,12 @@ $ wget http://wordpress.org/latest.tar.gz
 $ ls
 $ tar -xzvf latest.tar.gz
 
+
 ############################################
 # Prepare MYSQL database for Wordpress installation:
 
 $ mysql -u root -p
+
 
 # And follow instructions on the screen as below:
     Enter password:
@@ -237,18 +257,23 @@ $ mysql -u root -p
     Bye
     $
 
+
 ############################################
 # WORDPRESS continue:
 ############################################
+
 $ cp ~/wordpress/wp-config-sample.php ~/wordpress/wp-config.php
 $ ls ~/wordpress/
 $ sudo nano ~/wordpress/wp-config.php
 $ ls /var/www/example.com
 $ sudo cp -r ~/wordpress/* /var/www/example.com
 
-# Let say that in this case scenario: /var/www/ is a default directory for our wordpress website:
+
+# Let say that in this case scenario: /var/www/ is a default directory for our wordpress website
+(it can be elesewhere like in /home/website):
 
 $ cd /var/www/
+
 
 # Take care of the ownership of wordpress files (pain in the ass with all wordpress updates, caching and securing all data):
 
@@ -258,16 +283,21 @@ $ sudo chmod -R g+w /var/www/example.com
 $ sudo find /var/www/example.com -type d -exec chmod g+s {} \;
 $ sudo chown -R example-user:www-data /var/www
 
+
 # Check ownership of all /var/www/example.com files:
 
 $ ls -la /var/www/example.com
 
+
 # In case of any troubles with upgrades, updates or editing files:
+
 $ sudo chown example-user:www-data * -R
+
 
 ############################################
 
                  ***
+                  *
 
 ############################################
 # Set up NGINX for example.com
@@ -281,20 +311,26 @@ $ ls -l /etc/nginx/sites-enabled/
 $ sudo rm /etc/nginx/sites-enabled/default
 $ sudo service nginx restart && sudo service php5-fpm restart
 
+
 # Check NGINX status:
 
 $ nginx -t
 
+
 # Prepare NGINX logs directories:
+
 $ sudo mkdir /var/www/example.com/logs && sudo mkdir /var/www/example.com/logs/access.log && sudo ln -s /var/log/nginx/example.com.access.log /var/www/example.com/logs/access.log && sudo ln -s /var/log/nginx/example.com.error.log /var/www/example.com/logs/error.log
+
 
 # Once again check for errors:
 
 $ nginx -t
 
+
 # Edit main nginx file, and make all necessary changes:
 
 $ sudo nano /etc/nginx/nginx.conf
+
 
 # Change log's ownership:
 
@@ -309,18 +345,22 @@ $ service nginx status
 
 $ ps aux | grep .nginx: worker process. | awk .{print $1}.
 
+
 ############################################
 
                   ***
+                   *
 
 ############################################
 # Install VARNISH cache server:
 ############################################
 
+
 $ curl http://repo.varnish-cache.org/debian/GPG-key.txt | apt-key add -
 $ nano /etc/apt/sources.list
 $ sudo apt-get install varnish
 $ sudo nano /etc/default/varnish
+
 
 ###
 #
@@ -412,6 +452,7 @@ $ sudo nano /etc/varnish/default.vcl
 #
 ###
 
+
 # Reload configuration:
 
 $ sudo service nginx restart
@@ -421,9 +462,11 @@ $ sudo service varnish restart
 
 $ varnishstat
 
+
 ############################################
 
                   ***
+                   *
 
 ############################################
 # ADDITIONAL PACKAGES TO INSTALL:
@@ -431,10 +474,12 @@ $ varnishstat
 
 # PHP and cache (apc) plus additional 'must have' apps:
 
+
 $ sudo apt-get install php5-tidy php-pear libpcre3-dev make php5-dev
 $ sudo pear upgrade
 
 $ sudo pecl install apc
+
 
 # or:
 
@@ -443,6 +488,7 @@ $ sudo apt-get install php-apc
 # Reload php5-fpm:
 
 $ sudo service php5-fpm restart
+
 
 ############################################
 # If you want to have APC cache
@@ -455,7 +501,9 @@ $ sudo nano /etc/php5/conf.d/apc.ini
 $ sudo ls /etc/php5/cli/conf.d
 $ sudo nano /etc/php5/cli/conf.d/20-apcu.ini
 
+
 # I decided to remove apc.php because I had no use for it and for security reasons:
+
 $ sudo rm -rf /var/www/example.com/apc.php
 
 ############################################
@@ -467,6 +515,7 @@ $ sudo apt-get install php5-gd php5-freetype php5-curl php5-apc php-pear php-dev
 ############################################
 
 $ cd /var/www/example.com && sudo nano robots.txt
+
 
 ############################################
 # ROBOTS.TXT file (allow/disallow):
@@ -500,6 +549,7 @@ $ cd /var/www/example.com && sudo nano robots.txt
     Disallow: /*?
     Allow: /wp-content/uploads/
 
+
 ############################################
 ###
 # host names setup (change 'hostname' to your's server hostname): 
@@ -525,13 +575,16 @@ $ sudo nano /etc/hosts
 
 $ sudo hostname -F /etc/hostname
 
+
 ############################################
 
-
                ***
+                *
+                
 ############################################
 # SECURITY: 
 ############################################
+
 Edit files ->
 
 $ sudo nano /etc/sysctl.conf
@@ -599,10 +652,12 @@ $ sudo apt-get install dnsutils
 $ host -t mx example.com
 $ curl http://example.com | tail -n 4 && echo -e
 
+
 ############################################
 # WORDPRESS CACHE PLUGIN W3C TOTAL CACHE CONFIG:
 ############################################
 # W3C TOTAL CACHE - server side configuration:
+
 
 $ sudo apt-get install php-apc php5-apcu memcached php5-memcache php-pear build-essential && sudo pecl install memcache
 $ echo "extension=memcache.so" | sudo tee /etc/php5/conf.d/memcache.ini
@@ -611,17 +666,24 @@ $ sudo nano /etc/php5/cli/conf.d/memcache.ini
 $ ps aux | grep memcache
 $ sudo service varnish restart && sudo service nginx restart
 
+
 ############################################
 # BULLETPROOF HTACCESS:
 ############################################
+
 $ sudo nano /var/www/example.com/.htaccess
 
-TODO!
+##########
+# TO DO! #
+##########
+
 
 ############################################
 # Backup example.com config file:
 ############################################
+
 $ sudo cp /etc/nginx/sites-available/example.com /etc/nginx/sites-available/backup_example.com
+
 
 # And rename it (if you host more than one website- your IP server will serve website in alphabetical order):
 
@@ -631,22 +693,25 @@ $ sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/aaa
 
 $ sudo rm /etc/nginx/sites-enabled/example.com
 
+
 ############################################
 # Repair ownership of robots.txt:
 ############################################
+
 sudo chown www-data:www-data /var/www/example.com/robots.txt
 
 
 ############################################
 # WORDPRESS - INSTALLATION (LAST PART):
 ############################################
-Drop the console and head to your browser; enter in the adress field:
+
+# Drop the console and head to your browser; enter in the adress field:
 
 http://example.com/wp-admin/install.php
 
-And follow instructions to finish your installation. 
-Add user (please do not set your's username as 'admin') 
-& password (generate secure one (random, mixed numbers, letters, etc and long)).
+# And follow instructions to finish your installation. 
+# Add user (please do not set your's username as 'admin') 
+# & password (generate secure one (random, mixed numbers, letters, etc and long)).
 
 
 ############################################
