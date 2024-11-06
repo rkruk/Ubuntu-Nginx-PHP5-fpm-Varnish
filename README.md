@@ -55,7 +55,7 @@ git clone https://github.com/rkruk/Ubuntu-Nginx-PHP-Redis.git
 ```
 
 ```bash
-cd wordpress-setup
+cd Ubuntu-Nginx-PHP-Redis
 ```
 
 2. Update the Script (Optional)<br>
